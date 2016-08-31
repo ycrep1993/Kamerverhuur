@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by percy on 8/31/16.
  */
 @WebServlet("/servlet")
-public class Servlet extends HttpServlet {
+public class SearchRoomServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
