@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by percy on 8/31/16..
@@ -29,5 +30,17 @@ public class SearchRoomServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    private boolean isValidLogin(String username, String password) {
+        ArrayList<User> users = Storage.getInstance().getUsers();
+        for (User user : users) {
+            if (user.getUserName().equals(username)) {
+                if (user.getPassword().equals(password)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
