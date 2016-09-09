@@ -6,17 +6,17 @@
 </head>
 <body>
 
-    <form>
+    <form action="LoginServlet" method="post">
         Username<br/>
-        <input type="text" name="username">
+        <input type="text" name="username" required>
         <br/>
         Password<br/>
-        <input type="password" name="password">
+        <input type="password" name="password" required>
         <br/>
         Confirm Password<br/>
-        <input type="password" name="cpassword">
+        <input type="password" name="cpassword" required>
         <br/>
-        <input type="submit">
+        <input type="submit" name="extra" value="register">
     </form>
 
 </body>
