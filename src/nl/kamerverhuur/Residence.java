@@ -46,4 +46,12 @@ public class Residence {
     public int getBedrooms() {
         return bedrooms;
     }
+
+    public String toHTML(){
+        return "Plaats: " + getCity() + "</br>" +
+                "Aantal vierkante meters: " + getSquareMeters() + "</br>" +
+                "Aantal slaapkamers: " + getBedrooms() + "</br>" +
+                "Huurprijs: " + getRent() + "</br>" +
+                "Verhuurder: " + getName() + "</br></br>";
+    }
 }

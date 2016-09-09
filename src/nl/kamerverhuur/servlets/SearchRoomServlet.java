@@ -43,11 +43,7 @@ public class SearchRoomServlet extends HttpServlet {
                     residence.getBedrooms() >= minBedrooms &&
                     residence.getCity().equals(plaats)){
 
-                out.println("Plaats: " + residence.getCity() + "</br>");
-                out.println("Aantal vierkante meters: " + residence.getSquareMeters() + "</br>");
-                out.println("Aantal slaapkamers: " + residence.getBedrooms() + "</br>");
-                out.println("Huurprijs: " + residence.getRent() + "</br>");
-                out.println("Verhuurder: " + residence.getName() + "</br></br>");
+                out.println(residence.toHTML());
             }
         }
 
