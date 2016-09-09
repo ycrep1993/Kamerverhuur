@@ -1,5 +1,6 @@
 package nl.kamerverhuur.servlets;
 
+import nl.kamerverhuur.KamerverhuurUtils;
 import nl.kamerverhuur.Storage;
 import nl.kamerverhuur.users.*;
 
@@ -21,7 +22,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("extra").equals("login")) {
             if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
-                UserType type = getUserType(request.getParameter("username"));
+                UserType type = KamerverhuurUtils.getUserType(request.getParameter("username"));
                 makeCookie(response, request.getParameter("username"));
                 if (type == UserType.BEHEERDER) {
                     response.sendRedirect("/ShowPersonsServlet");
@@ -39,10 +40,13 @@ public class LoginServlet extends HttpServlet {
             boolean retry = true;
             String errorText = "";
             if (username.length() > 5) { // username has to be more than 5 characters
-                if (isUniqueName(username)) {
+                if (isUniqueName(username)) { // username has to be unique
                     if (password.equals(request.getParameter("cpassword"))) { // password much match password confirmation
                         if (password.length() > 5) { // password has to be more than 5 characters
-                            Storage.getInstance().addUser(username, password, UserType.HUURDER);
+                            UserType type = request.getParameter("typeChoice").equals("huurder")
+                                    ? UserType.HUURDER
+                                    : UserType.VERHUURDER;
+                            Storage.getInstance().addUser(username, password, type);
                             retry = false;
                         } else {
                             errorText = "Password must contain more than 5 characters!";
@@ -100,20 +104,6 @@ public class LoginServlet extends HttpServlet {
             }
         }
         return false;
-    }
-
-    /**
-     * Method to check the type of user
-     * @param username the String of the username field
-     * @return the type of the user
-     */
-    private UserType getUserType(String username) {
-        for (User user : Storage.getInstance().getUsers()) {
-            if (user.getUserName().equals(username)) {
-                return user.getType();
-            }
-        }
-        return null; // impossible
     }
 
     private boolean isUniqueName(String username) {

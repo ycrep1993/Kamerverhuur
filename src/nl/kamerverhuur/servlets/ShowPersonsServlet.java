@@ -1,5 +1,8 @@
 package nl.kamerverhuur.servlets;
 
+import nl.kamerverhuur.KamerverhuurUtils;
+import nl.kamerverhuur.users.UserType;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -13,20 +16,16 @@ import java.io.IOException;
  */
 @WebServlet("/ShowPersonsServlet")
 public class ShowPersonsServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.getWriter().println("Logged in as beheerder1");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        Cookie loginCookie = null;
-
-        if(cookies != null){
-            for (Cookie cookie:cookies) {
-                if (cookie.getName().equals("loggedInUser")){
-                    response.getWriter().println(cookie.getValue());
-                }
-            }
+        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
+            response.getWriter().println("access allowed");
+        } else {
+            response.getWriter().println("access NOT allowed");
         }
     }
 }

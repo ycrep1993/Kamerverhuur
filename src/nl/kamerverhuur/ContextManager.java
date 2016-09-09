@@ -14,7 +14,7 @@ public class ContextManager implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Storage storage = Storage.getInstance();
 
-        storage.addUser("beheerder", "admin123", UserType.BEHEERDER);
+        storage.addUser("admin", "password", UserType.BEHEERDER);
         storage.addUser("huurder", "huurder123", UserType.HUURDER);
         storage.addUser("verhuurder", "verhuurder123", UserType.VERHUURDER);
         storage.addUser("verhuurder2", "verhuurder2123", UserType.VERHUURDER);

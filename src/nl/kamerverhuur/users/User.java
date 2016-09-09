@@ -1,5 +1,7 @@
 package nl.kamerverhuur.users;
 
+import nl.kamerverhuur.Storage;
+
 /**
  * Created by Percy on 7-9-2016.
  */
@@ -38,8 +40,8 @@ public class User {
     }
 
     /**
-     * returns nl.kamerverhuur.users.UserType
-     * @return nl.kamerverhuur.users.UserType
+     * returns UserType
+     * @return UserType
      */
     public UserType getType() {
         return type;
