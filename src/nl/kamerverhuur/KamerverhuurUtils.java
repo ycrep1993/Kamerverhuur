@@ -5,6 +5,7 @@ import nl.kamerverhuur.users.UserType;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Ruben on 9/9/2016.
@@ -39,12 +40,13 @@ public class KamerverhuurUtils {
         return null;
     }
 
-    public static void deleteCookie(HttpServletRequest request) {
+    public static void deleteCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
 
         if(cookies != null){
             for (Cookie cookie:cookies) {
                 cookie.setMaxAge(0);
+                response.addCookie(cookie);
             }
         }
     }

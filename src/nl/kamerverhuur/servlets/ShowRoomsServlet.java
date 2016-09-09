@@ -3,6 +3,7 @@ package nl.kamerverhuur.servlets;
 import nl.kamerverhuur.KamerverhuurUtils;
 import nl.kamerverhuur.Residence;
 import nl.kamerverhuur.Storage;
+import nl.kamerverhuur.users.UserType;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -44,20 +45,31 @@ public class ShowRoomsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        out.println("<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">");
-        out.println("<html><head><title>Show Rooms</title></head><body>");
+        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
+            PrintWriter out = response.getWriter();
+            out.println("<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">");
+            out.println("<html><head><title>Show Rooms</title></head><body>");
 
-        for (Residence residence : residences){
-            if (residence.getName().equals(KamerverhuurUtils.getUserNameFromCookie(request))){
-                out.println(residence.toHTML());
+            for (Residence residence : residences) {
+                if (residence.getName().equals(KamerverhuurUtils.getUserNameFromCookie(request))) {
+                    out.println(residence.toHTML());
+                }
             }
-        }
 
-        out.println("<form action=\"/ShowRoomsServlet\" method=\"post\">" +
-                "<input type=\"hidden\" name=\"addroom\" value=\"true\">" +
-                "<input type=\"submit\" name=\"submit\">" +
-                "</form>");
-        out.println("</body></html>");
+            out.println("<form action=\"/ShowRoomsServlet\" method=\"post\">" +
+                    "<input type=\"hidden\" name=\"addroom\" value=\"true\">" +
+                    "<input type=\"submit\" name=\"submit\">" +
+                    "</form>");
+
+            out.println("<form action=\"/LoginServlet\" method=\"post\">" +
+                    "<input type=\"hidden\" name=\"extra\" value=\"logout\">" +
+                    "<input type=\"submit\" name=\"submit\" value=\"logout\">" +
+                    "</form>");
+
+            out.println("</body></html>");
+        } else {
+            response.getWriter().println("access NOT allowed");
+        }
+        destroy();
     }
 }

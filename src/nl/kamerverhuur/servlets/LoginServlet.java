@@ -87,7 +87,7 @@ public class LoginServlet extends HttpServlet {
                         "</html>");
             }
         } else {
-            KamerverhuurUtils.deleteCookie(request);
+            KamerverhuurUtils.deleteCookie(request, response);
             response.sendRedirect("login.html");
         }
         destroy();

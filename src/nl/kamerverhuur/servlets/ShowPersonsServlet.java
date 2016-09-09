@@ -37,17 +37,24 @@ public class ShowPersonsServlet extends HttpServlet {
             String docType = "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n";
             String title = "Show persons";
 
+            out.println("<html><head><title>" + title + "</title></head>\n");
+
             for (User user : Storage.getInstance().getUsers()) {
                 out.println(docType +
-                        "<html>\n" +
-                        "<head><title>" + title + "</title></head>\n" +
                         "Name: "+user.getUserName()+"<br/>\n" +
                         "Password: "+user.getPassword()+"<br/>\n" +
-                        "Type: "+user.getType()+"<br/><br/>\n" +
-                        "</html>");
+                        "Type: "+user.getType()+"<br/><br/>\n");
             }
+
+            out.println("<form action=\"/LoginServlet\" method=\"post\">" +
+                    "<input type=\"hidden\" name=\"extra\" value=\"logout\">" +
+                    "<input type=\"submit\" name=\"submit\" value=\"logout\">" +
+                    "</form>");
+
+            out.println("</html>");
         } else {
             response.getWriter().println("access NOT allowed");
         }
+        destroy();
     }
 }
