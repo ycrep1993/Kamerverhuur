@@ -17,6 +17,7 @@ public class SearchRoomServlet extends HttpServlet {
         if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
             UserType type = getUserType(request.getParameter("username"));
             if (type == UserType.BEHEERDER) {
+                Storage.getInstance().saveLoggedInUserInCookie(response, request.getParameter("username"));
                 response.sendRedirect("/ShowPersonsServlet");
             } else if (type == UserType.VERHUURDER) {
                 getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
