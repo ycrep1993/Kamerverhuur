@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by percy on 8/31/16..
+ * In this class the user might get redirected to other servlets and htmls depending on UserType.
+ * If the user does not get redirected (user statys in this class), the user will be able to search available rooms.
  */
 @WebServlet("/SearchRoomServlet")
 public class SearchRoomServlet extends HttpServlet {
@@ -31,6 +32,12 @@ public class SearchRoomServlet extends HttpServlet {
 
     }
 
+    /**
+     * Method to check whether a login is valid
+     * @param username the String of the username field
+     * @param password the String of the password field
+     * @return true if user exists, false if not
+     */
     private boolean isValidLogin(String username, String password) {
         for (User user : Storage.getInstance().getUsers()) {
             if (user.getUserName().equals(username)) {
@@ -42,6 +49,11 @@ public class SearchRoomServlet extends HttpServlet {
         return false;
     }
 
+    /**
+     * Method to check the type of user
+     * @param username the String of the username field
+     * @return the type of the user
+     */
     private UserType getUserType(String username) {
         for (User user : Storage.getInstance().getUsers()) {
             if (user.getUserName().equals(username)) {
