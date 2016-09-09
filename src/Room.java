@@ -9,7 +9,7 @@ public class Room {
     private String naam;
     private int slaapkamers;
 
-    private Room(double vierkante_meters, double huurprijs, String plaats, String naam, int slaapkamers) {
+    public Room(double vierkante_meters, double huurprijs, String plaats, String naam, int slaapkamers) {
         this.vierkante_meters = vierkante_meters;
         this.huurprijs = huurprijs;
         this.plaats = plaats;
