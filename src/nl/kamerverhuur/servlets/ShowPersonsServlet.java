@@ -20,13 +20,6 @@ import java.io.PrintWriter;
 @WebServlet("/ShowPersonsServlet")
 public class ShowPersonsServlet extends HttpServlet {
 
-    @Override
-    public void init() throws ServletException {
-        //We dont have anything to init here
-
-        super.init();
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.getWriter().println("Logged in as beheerder1");
     }

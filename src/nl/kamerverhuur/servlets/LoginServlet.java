@@ -19,6 +19,8 @@ import java.io.PrintWriter;
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("extra").equals("login")) {
             if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
@@ -26,13 +28,17 @@ public class LoginServlet extends HttpServlet {
                 makeCookie(response, request.getParameter("username"));
                 if (type == UserType.BEHEERDER) {
                     response.sendRedirect("/ShowPersonsServlet");
+                    destroy();
                 } else if (type == UserType.VERHUURDER) {
                     getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
+                    destroy();
                 } else if (type == UserType.HUURDER) {
                     getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
+                    destroy();
                 }
             } else {
                 getServletContext().getRequestDispatcher("/WEB-INF/foutelogin.html").forward(request, response);
+                destroy();
             }
         } else if (request.getParameter("extra").equals("register")) {
             String username = request.getParameter("username");
@@ -81,10 +87,13 @@ public class LoginServlet extends HttpServlet {
                         "</html>");
             }
         } else {
-            // huh???
+            KamerverhuurUtils.deleteCookie(request);
+            response.sendRedirect("login.html");
         }
+        destroy();
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }

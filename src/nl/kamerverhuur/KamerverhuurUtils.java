@@ -38,4 +38,14 @@ public class KamerverhuurUtils {
         }
         return null;
     }
+
+    public static void deleteCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+
+        if(cookies != null){
+            for (Cookie cookie:cookies) {
+                cookie.setMaxAge(0);
+            }
+        }
+    }
 }

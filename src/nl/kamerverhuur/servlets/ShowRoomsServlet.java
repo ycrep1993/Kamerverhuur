@@ -4,7 +4,6 @@ import nl.kamerverhuur.KamerverhuurUtils;
 import nl.kamerverhuur.Residence;
 import nl.kamerverhuur.Storage;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -20,14 +19,6 @@ import java.util.ArrayList;
  */
 @WebServlet("/ShowRoomsServlet")
 public class ShowRoomsServlet extends HttpServlet {
-
-    private ArrayList<Residence> residences;
-
-    @Override
-    public void init() throws ServletException {
-        residences = Storage.getInstance().getResidences();
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if(request.getParameter("addroom") != null && request.getParameter("addroom").equals("true")){
@@ -41,6 +32,7 @@ public class ShowRoomsServlet extends HttpServlet {
 
             doGet(request, response);
         }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,6 +40,7 @@ public class ShowRoomsServlet extends HttpServlet {
         out.println("<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">");
         out.println("<html><head><title>Show Rooms</title></head><body>");
 
+        ArrayList<Residence> residences = Storage.getInstance().getResidences();
         for (Residence residence : residences){
             if (residence.getName().equals(KamerverhuurUtils.getUserNameFromCookie(request))){
                 out.println(residence.toHTML());
