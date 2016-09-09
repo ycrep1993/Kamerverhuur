@@ -8,13 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by percy on 8/31/16..
+ * Created by Ruben on 9/9/2016.
  */
-@WebServlet("/ShowRoomsServlet")
-public class ShowRoomsServlet extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 
     }
 

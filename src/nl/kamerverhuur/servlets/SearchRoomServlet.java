@@ -24,14 +24,14 @@ public class SearchRoomServlet extends HttpServlet {
             UserType type = getUserType(request.getParameter("username"));
             makeCookie(response, request.getParameter("username"));
             if (type == UserType.BEHEERDER) {
-                response.sendRedirect("/nl.kamerverhuur.ShowPersonsServlet");
+                response.sendRedirect("/ShowPersonsServlet");
             } else if (type == UserType.VERHUURDER) {
                 getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
             } else if (type == UserType.HUURDER) {
                 getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
             }
         } else {
-            response.sendRedirect("fouteinlog.html");
+            getServletContext().getRequestDispatcher("/WEB-INF/foutelogin.html").forward(request, response);
         }
     }
 
