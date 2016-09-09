@@ -1,13 +1,17 @@
+package nl.kamerverhuur.servlets;
+
+import nl.kamerverhuur.*;
+import nl.kamerverhuur.users.*;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
- * In this class the user might get redirected to other servlets and htmls depending on UserType.
+ * In this class the user might get redirected to other nl.kamerverhuur.servlets and htmls depending on nl.kamerverhuur.users.UserType.
  * If the user does not get redirected (user statys in this class), the user will be able to search available rooms.
  */
 @WebServlet("/SearchRoomServlet")
@@ -18,7 +22,7 @@ public class SearchRoomServlet extends HttpServlet {
             UserType type = getUserType(request.getParameter("username"));
             if (type == UserType.BEHEERDER) {
                 Storage.getInstance().saveLoggedInUserInCookie(response, request.getParameter("username"));
-                response.sendRedirect("/ShowPersonsServlet");
+                response.sendRedirect("/nl.kamerverhuur.ShowPersonsServlet");
             } else if (type == UserType.VERHUURDER) {
                 getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
             } else if (type == UserType.HUURDER) {

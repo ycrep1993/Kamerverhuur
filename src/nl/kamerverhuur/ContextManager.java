@@ -1,3 +1,7 @@
+package nl.kamerverhuur;
+
+import nl.kamerverhuur.users.UserType;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 

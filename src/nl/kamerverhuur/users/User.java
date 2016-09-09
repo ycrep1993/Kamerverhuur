@@ -1,3 +1,5 @@
+package nl.kamerverhuur.users;
+
 /**
  * Created by Percy on 7-9-2016.
  */
@@ -8,7 +10,7 @@ public class User {
     private UserType type;
 
     /**
-     * Constructor for User class
+     * Constructor for nl.kamerverhuur.users.User class
      * @param userName name for the user
      * @param password password for the user
      * @param type the type of the user
@@ -36,8 +38,8 @@ public class User {
     }
 
     /**
-     * returns UserType
-     * @return UserType
+     * returns nl.kamerverhuur.users.UserType
+     * @return nl.kamerverhuur.users.UserType
      */
     public UserType getType() {
         return type;

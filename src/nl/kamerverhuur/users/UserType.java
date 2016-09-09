@@ -1,3 +1,5 @@
+package nl.kamerverhuur.users;
+
 /**
  * Created by Percy on 7-9-2016.
  */
