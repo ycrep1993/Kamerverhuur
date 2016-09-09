@@ -17,7 +17,7 @@ public class SearchRoomServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean loggedIn = false;
-        if (request.getParameter("username").equals("test") && request.getParameter("password").equals("test")) {
+        if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
             loggedIn = true;
         }
 
