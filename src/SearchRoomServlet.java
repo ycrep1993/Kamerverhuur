@@ -13,8 +13,6 @@ import java.util.ArrayList;
 public class SearchRoomServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean loggedIn = false;
-        Storage storage = Storage.getInstance();
         if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
             UserType type = getUserType(request.getParameter("username"));
             if (type == UserType.BEHEERDER) {
@@ -34,8 +32,7 @@ public class SearchRoomServlet extends HttpServlet {
     }
 
     private boolean isValidLogin(String username, String password) {
-        ArrayList<User> users = Storage.getInstance().getUsers();
-        for (User user : users) {
+        for (User user : Storage.getInstance().getUsers()) {
             if (user.getUserName().equals(username)) {
                 if (user.getPassword().equals(password)) {
                     return true;
@@ -46,8 +43,7 @@ public class SearchRoomServlet extends HttpServlet {
     }
 
     private UserType getUserType(String username) {
-        ArrayList<User> users = Storage.getInstance().getUsers();
-        for (User user : users) {
+        for (User user : Storage.getInstance().getUsers()) {
             if (user.getUserName().equals(username)) {
                 return user.getType();
             }
