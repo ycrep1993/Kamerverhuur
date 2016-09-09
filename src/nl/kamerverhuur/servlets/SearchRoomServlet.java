@@ -5,6 +5,7 @@ import nl.kamerverhuur.users.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +19,11 @@ import java.io.IOException;
 public class SearchRoomServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
             UserType type = getUserType(request.getParameter("username"));
+            makeCookie(response, request.getParameter("username"));
             if (type == UserType.BEHEERDER) {
-                Storage.getInstance().saveLoggedInUserInCookie(response, request.getParameter("username"));
                 response.sendRedirect("/nl.kamerverhuur.ShowPersonsServlet");
             } else if (type == UserType.VERHUURDER) {
                 getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
@@ -66,5 +68,11 @@ public class SearchRoomServlet extends HttpServlet {
             }
         }
         return null; // impossible
+    }
+
+    private void makeCookie(HttpServletResponse response, String userName ){
+        Cookie loggedInUserCookie = new Cookie("loggedInUser", userName);
+        loggedInUserCookie.setMaxAge(60*60);
+        response.addCookie(loggedInUserCookie);
     }
 }
