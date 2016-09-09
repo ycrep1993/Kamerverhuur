@@ -12,17 +12,18 @@ import java.util.ArrayList;
 @WebServlet("/SearchRoomServlet")
 public class SearchRoomServlet extends HttpServlet {
 
-    private String username = "test";
-    private String password = "test";
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean loggedIn = false;
+        Storage storage = Storage.getInstance();
         if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
-            loggedIn = true;
-        }
-
-        if (loggedIn) {
-            response.getWriter().println("Login succesfull");
+            UserType type = getUserType(request.getParameter("username"));
+            if (type == UserType.BEHEERDER) {
+                response.sendRedirect("/ShowPersonsServlet");
+            } else if (type == UserType.VERHUURDER) {
+                getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
+            } else if (type == UserType.HUURDER) {
+                response.getWriter().println("Logged in as huurder");
+            }
         } else {
             response.sendRedirect("fouteinlog.html");
         }
@@ -42,5 +43,15 @@ public class SearchRoomServlet extends HttpServlet {
             }
         }
         return false;
+    }
+
+    private UserType getUserType(String username) {
+        ArrayList<User> users = Storage.getInstance().getUsers();
+        for (User user : users) {
+            if (user.getUserName().equals(username)) {
+                return user.getType();
+            }
+        }
+        return null; // impossible
     }
 }
