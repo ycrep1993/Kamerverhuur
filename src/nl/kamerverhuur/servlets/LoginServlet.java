@@ -67,8 +67,8 @@ public class LoginServlet extends HttpServlet {
                 out.println(docType +
                         "<html>\n" +
                         "<head><title>" + title + "</title></head>\n" +
-                        "Registration not successful.<br/>" +
-                        errorText + "<br/>" +
+                        "Registration not successful.<br/>\n" +
+                        errorText + "<br/>\n" +
                         "<a href=\"/registreer.html\">Retry.</a>\n" +
                         "</html>");
             } else {
@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
                 out.println(docType +
                         "<html>\n" +
                         "<head><title>" + title + "</title></head>\n" +
-                        "Registration successful!<br/>" +
+                        "Registration successful!<br/>\n" +
                         "<a href=\"/login.html\">Login.</a>\n" +
                         "</html>");
             }

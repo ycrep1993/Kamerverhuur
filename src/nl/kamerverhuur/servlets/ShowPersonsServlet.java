@@ -1,6 +1,8 @@
 package nl.kamerverhuur.servlets;
 
 import nl.kamerverhuur.KamerverhuurUtils;
+import nl.kamerverhuur.Storage;
+import nl.kamerverhuur.users.User;
 import nl.kamerverhuur.users.UserType;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by percy on 8/31/16..
@@ -23,7 +26,19 @@ public class ShowPersonsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
-            response.getWriter().println("access allowed");
+            PrintWriter out = response.getWriter();
+            String docType = "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n";
+            String title = "Show persons";
+
+            for (User user : Storage.getInstance().getUsers()) {
+                out.println(docType +
+                        "<html>\n" +
+                        "<head><title>" + title + "</title></head>\n" +
+                        "Name: "+user.getUserName()+"<br/>\n" +
+                        "Password: "+user.getPassword()+"<br/>\n" +
+                        "Type: "+user.getType()+"<br/><br/>\n" +
+                        "</html>");
+            }
         } else {
             response.getWriter().println("access NOT allowed");
         }
