@@ -17,8 +17,14 @@ import java.util.ArrayList;
 @WebServlet("/SearchRoomServlet")
 public class SearchRoomServlet extends HttpServlet {
 
+    private ArrayList<Residence> residences;
+
+    @Override
+    public void init() throws ServletException {
+        residences = Storage.getInstance().getResidences();
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Residence> residences = Storage.getInstance().getResidences();
         double minSquareMeters = Double.parseDouble(request.getParameter("min_vierkante_meters"));
         double maxSquareMeters = Double.parseDouble(request.getParameter("max_vierkante_meters"));
         double minRent = Double.parseDouble(request.getParameter("min_huurprijs"));
@@ -53,7 +59,7 @@ public class SearchRoomServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        //We dont have to do anything here
     }
 
 }
