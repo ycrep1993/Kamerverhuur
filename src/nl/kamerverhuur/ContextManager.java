@@ -22,6 +22,10 @@ public class ContextManager implements ServletContextListener {
         storage.addRoom(10, 100, "Almelo", "verhuurder", 1);
         storage.addRoom(20, 200, "Hengelo", "verhuurder", 1);
         storage.addRoom(30, 300, "Enschede", "verhuurder2", 1);
+        storage.addRoom(20, 350, "Enschede", "verhuurder2", 1);
+        storage.addRoom(60, 250, "Enschede", "henkie", 1);
+        storage.addRoom(11, 320, "Enschede", "pietje", 3);
+        storage.addRoom(30, 3009, "Enschede", "verhuurder2", 1);
 
     }
 

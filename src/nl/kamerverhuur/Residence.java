@@ -26,4 +26,24 @@ public class Residence {
         this.name = name;
         this.bedrooms = bedrooms;
     }
+
+    public double getSquareMeters() {
+        return squareMeters;
+    }
+
+    public double getRent() {
+        return rent;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBedrooms() {
+        return bedrooms;
+    }
 }

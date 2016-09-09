@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <form>
+    <form action="/SearchRoomServlet" method="post">
         Minimaal aantal vierkante meters<br/>
         <input type="number" name="min_vierkante_meters">
         <br/>
@@ -21,23 +21,16 @@
         <input type="number" name="max_huurprijs">
         <br/>
         <br/>
-        Minimale huurprijs<br/>
-        <input type="number" name="min_huurprijs">
-        <br/>
-        Maximale huurprijs<br/>
-        <input type="number" name="max_huurprijs">
-        <br/>
-        <br/>
         Aantal slaapkamers<br/>
         <input type="number" name="slaapkamers">
         <br/>
         <br/>
         Plaats<br/>
-        <select>
-            <option value="enschede">Enschede</option>
-            <option value="hengelo">Hengelo</option>
-            <option value="amsterdam">Amsterdam</option>
-            <option value="parijs">Parijs</option>
+        <select id="plaats" name="plaats">
+            <option value="Enschede">Enschede</option>
+            <option value="Hengelo">Hengelo</option>
+            <option value="Amsterdam">Amsterdam</option>
+            <option value="Parijs">Parijs</option>
         </select>
         <br/>
         <br/>
