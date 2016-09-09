@@ -21,7 +21,7 @@ public class SearchRoomServlet extends HttpServlet {
             } else if (type == UserType.VERHUURDER) {
                 getServletContext().getRequestDispatcher("/WEB-INF/addroom.html").forward(request, response);
             } else if (type == UserType.HUURDER) {
-                response.getWriter().println("Logged in as huurder");
+                getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request, response);
             }
         } else {
             response.sendRedirect("fouteinlog.html");
