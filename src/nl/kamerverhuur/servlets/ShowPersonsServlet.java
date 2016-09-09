@@ -20,6 +20,10 @@ import java.io.PrintWriter;
 @WebServlet("/ShowPersonsServlet")
 public class ShowPersonsServlet extends HttpServlet {
 
+    /**
+     * Init the servlet. Only we dont have any initial values for this one
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
         //We dont have anything to init here
@@ -27,10 +31,24 @@ public class ShowPersonsServlet extends HttpServlet {
         super.init();
     }
 
+    /**
+     * The post method, only we dont post to this servlet
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Logged in as beheerder1");
+        //We dont post to this servlet
     }
 
+    /**
+     * Here we show a list of persons
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
             PrintWriter out = response.getWriter();

@@ -23,11 +23,22 @@ public class ShowRoomsServlet extends HttpServlet {
 
     private ArrayList<Residence> residences;
 
+    /**
+     * Initialise the servlet. The only thing we have to init is the residences array.
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
         residences = Storage.getInstance().getResidences();
     }
 
+    /**
+     * The post method. Here we either add a new room or redirect to the page to add a new room
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if(request.getParameter("addroom") != null && request.getParameter("addroom").equals("true")){
@@ -43,6 +54,13 @@ public class ShowRoomsServlet extends HttpServlet {
         }
     }
 
+    /**
+     * The get method. Here we show a list of rooms owned by the Verhuurder
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         out.println("<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">");

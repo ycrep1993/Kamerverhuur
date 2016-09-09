@@ -1,11 +1,8 @@
 package nl.kamerverhuur.servlets;
 
 import nl.kamerverhuur.*;
-import nl.kamerverhuur.users.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,11 +16,22 @@ public class SearchRoomServlet extends HttpServlet {
 
     private ArrayList<Residence> residences;
 
+    /**
+     * We only have to init the residences arraylist
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
         residences = Storage.getInstance().getResidences();
     }
 
+    /**
+     * We get here if we are a Huurder. It shows rooms based on our preferences.
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double minSquareMeters = Double.parseDouble(request.getParameter("min_vierkante_meters"));
         double maxSquareMeters = Double.parseDouble(request.getParameter("max_vierkante_meters"));
@@ -58,8 +66,14 @@ public class SearchRoomServlet extends HttpServlet {
         out.println("</hmtl>");
     }
 
+    /**
+     * We dont really need anything in the doGet method, because this one is never used in this servlet
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //We dont have to do anything here
     }
-
 }

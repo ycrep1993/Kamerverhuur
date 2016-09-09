@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * In this class the user might get redirected to other servlets and htmls depending on UserType.
+ * In this class the user might get redirected to other servlets and html pages depending on UserType.
  * Also creates a cookie for the logged in user.
  */
 @WebServlet("/LoginServlet")
@@ -85,6 +85,13 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    /**
+     * We dont need to get anything, because we always get here through the post method
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -106,6 +113,11 @@ public class LoginServlet extends HttpServlet {
         return false;
     }
 
+    /**
+     * Check if a name is unique
+     * @param username the username
+     * @return true if unique, false if not unique
+     */
     private boolean isUniqueName(String username) {
         for (User user : Storage.getInstance().getUsers()) {
             if (user.getUserName().equals(username)) {
@@ -115,6 +127,11 @@ public class LoginServlet extends HttpServlet {
         return true;
     }
 
+    /**
+     * Create a new cookie for the logged in user
+     * @param response the response object
+     * @param userName the username
+     */
     private void makeCookie(HttpServletResponse response, String userName ){
         Cookie loggedInUserCookie = new Cookie("loggedInUser", userName);
         loggedInUserCookie.setMaxAge(60*60);
