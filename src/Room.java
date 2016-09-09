@@ -16,9 +16,4 @@ public class Room {
         this.naam = naam;
         this.slaapkamers = slaapkamers;
     }
-
-    public void addRoom(double vierkante_meters, double huurprijs, String plaats, String naam, int slaapkamers) {
-        // rooms.add(new Room(vierkante_meters, huurprijs, plaats, naam, slaapkamer));
-
-    }
 }
