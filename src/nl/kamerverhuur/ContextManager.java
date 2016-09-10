@@ -10,6 +10,10 @@ import javax.servlet.ServletContextListener;
  */
 public class ContextManager implements ServletContextListener {
 
+    /**
+     * When the server is started we need to make some dummydata so testing is easier
+     * @param servletContextEvent
+     */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Storage storage = Storage.getInstance();
@@ -29,6 +33,10 @@ public class ContextManager implements ServletContextListener {
 
     }
 
+    /**
+     * We dont really have anything to destroy
+     * @param servletContextEvent
+     */
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 

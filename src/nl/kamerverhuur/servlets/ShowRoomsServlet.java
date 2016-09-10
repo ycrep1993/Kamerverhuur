@@ -24,11 +24,22 @@ public class ShowRoomsServlet extends HttpServlet {
 
     private ArrayList<Residence> residences;
 
+    /**
+     * Initialise the arraylist with residences
+     * @throws ServletException
+     */
     @Override
     public void init() throws ServletException {
         residences = Storage.getInstance().getResidences();
     }
 
+    /**
+     * Forward to the addroom html or add a new room
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if(request.getParameter("addroom") != null && request.getParameter("addroom").equals("true")){
@@ -44,6 +55,13 @@ public class ShowRoomsServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Show a list of rooms
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
             PrintWriter out = response.getWriter();

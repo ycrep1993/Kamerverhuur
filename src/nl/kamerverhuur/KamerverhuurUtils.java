@@ -26,9 +26,13 @@ public class KamerverhuurUtils {
         return null; // impossible
     }
 
+    /**
+     * Get the username from the cookie
+     * @param request the request
+     * @return the string of the username
+     */
     public static String getUserNameFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        Cookie loginCookie = null;
 
         if(cookies != null){
             for (Cookie cookie:cookies) {
@@ -40,6 +44,11 @@ public class KamerverhuurUtils {
         return null;
     }
 
+    /**
+     * Delete all cookies
+     * @param request the request
+     * @param response the response
+     */
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
 

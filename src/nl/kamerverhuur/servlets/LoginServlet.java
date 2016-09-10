@@ -20,6 +20,13 @@ import java.io.PrintWriter;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
+    /**
+     * Check if user is logged in, and redirect to the correct page
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("extra").equals("login")) {
@@ -93,6 +100,13 @@ public class LoginServlet extends HttpServlet {
         destroy();
     }
 
+    /**
+     * We dont get here because we only use a post
+     * @param request the request
+     * @param response the response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -115,6 +129,11 @@ public class LoginServlet extends HttpServlet {
         return false;
     }
 
+    /**
+     * Check if a username already exists or not
+     * @param username the username to be checked
+     * @return true if its an unique name, false if it already exists
+     */
     private boolean isUniqueName(String username) {
         for (User user : Storage.getInstance().getUsers()) {
             if (user.getUserName().equals(username)) {
@@ -124,6 +143,11 @@ public class LoginServlet extends HttpServlet {
         return true;
     }
 
+    /**
+     * Make a cookie for the logged in user
+     * @param response the response so we can write the cookie
+     * @param userName the username of the logged in user
+     */
     private void makeCookie(HttpServletResponse response, String userName ){
         Cookie loggedInUserCookie = new Cookie("loggedInUser", userName);
         loggedInUserCookie.setMaxAge(60*60);
