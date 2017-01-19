@@ -6,16 +6,13 @@ import nl.kamerverhuur.users.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
  * In this class the user might get redirected to other servlets and htmls depending on UserType.
- * Also creates a cookie for the logged in user.
+ * Also creates a session for the logged in user.
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -32,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         if (request.getParameter("extra").equals("login")) {
             if (isValidLogin(request.getParameter("username"), request.getParameter("password"))) {
                 UserType type = KamerverhuurUtils.getUserType(request.getParameter("username"));
-                makeCookie(response, request.getParameter("username"));
+                startSession(request, request.getParameter("username"));
                 if (type == UserType.BEHEERDER) {
                     response.sendRedirect("/ShowPersonsServlet");
                     destroy();
@@ -44,7 +41,7 @@ public class LoginServlet extends HttpServlet {
                     destroy();
                 }
             } else {
-                getServletContext().getRequestDispatcher("/WEB-INF/foutelogin.html").forward(request, response);
+                getServletContext().getRequestDispatcher("/WEB-INF/fouteinlog.html").forward(request, response);
                 destroy();
             }
         } else if (request.getParameter("extra").equals("register")) {
@@ -95,6 +92,7 @@ public class LoginServlet extends HttpServlet {
             }
         } else {
             KamerverhuurUtils.deleteCookie(request, response);
+            KamerverhuurUtils.clearCurrentSession(request);
             response.sendRedirect("login.html");
         }
         destroy();
@@ -145,12 +143,19 @@ public class LoginServlet extends HttpServlet {
 
     /**
      * Make a cookie for the logged in user
+     * Deprecated because of switch to Session based check
      * @param response the response so we can write the cookie
      * @param userName the username of the logged in user
      */
+    @Deprecated
     private void makeCookie(HttpServletResponse response, String userName ){
         Cookie loggedInUserCookie = new Cookie("loggedInUser", userName);
         loggedInUserCookie.setMaxAge(60*60);
         response.addCookie(loggedInUserCookie);
+    }
+
+    private void startSession(HttpServletRequest request, String userName){
+        HttpSession session = request.getSession();
+        session.setAttribute("loggedInUser", userName);
     }
 }

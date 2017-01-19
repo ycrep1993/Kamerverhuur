@@ -43,7 +43,7 @@ public class ShowPersonsServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
+        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromSession(request)) == UserType.BEHEERDER) {
             PrintWriter out = response.getWriter();
             String docType = "<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">\n";
             String title = "Show persons";

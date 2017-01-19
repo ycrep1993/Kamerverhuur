@@ -6,6 +6,7 @@ import nl.kamerverhuur.users.UserType;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Ruben on 9/9/2016.
@@ -28,9 +29,11 @@ public class KamerverhuurUtils {
 
     /**
      * Get the username from the cookie
+     * Deprecated because of switch to Session based check
      * @param request the request
      * @return the string of the username
      */
+    @Deprecated
     public static String getUserNameFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
@@ -42,6 +45,16 @@ public class KamerverhuurUtils {
             }
         }
         return null;
+    }
+
+    public static String getUserNameFromSession(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        return (String) session.getAttribute("loggedInUser");
+    }
+
+    public static void clearCurrentSession(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("loggedInUser");
     }
 
     /**

@@ -63,13 +63,14 @@ public class ShowRoomsServlet extends HttpServlet {
      * @throws IOException
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
+        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromSession(request)) == UserType.BEHEERDER ||
+                KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromSession(request)) == UserType.VERHUURDER ) {
             PrintWriter out = response.getWriter();
             out.println("<!doctype html public \"-//w3c//dtd html 4.0 transitional//en\">");
             out.println("<html><head><title>Show Rooms</title></head><body>");
 
             for (Residence residence : residences) {
-                if (residence.getName().equals(KamerverhuurUtils.getUserNameFromCookie(request))) {
+                if (residence.getName().equals(KamerverhuurUtils.getUserNameFromSession(request))) {
                     out.println(residence.toHTML());
                 }
             }

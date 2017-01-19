@@ -35,7 +35,8 @@ public class SearchRoomServlet extends HttpServlet {
      * @throws IOException
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromCookie(request)) == UserType.BEHEERDER) {
+        if (KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromSession(request)) == UserType.BEHEERDER ||
+                KamerverhuurUtils.getUserType(KamerverhuurUtils.getUserNameFromSession(request)) == UserType.HUURDER) {
             double minSquareMeters = Double.parseDouble(request.getParameter("min_vierkante_meters"));
             double maxSquareMeters = Double.parseDouble(request.getParameter("max_vierkante_meters"));
             double minRent = Double.parseDouble(request.getParameter("min_huurprijs"));
