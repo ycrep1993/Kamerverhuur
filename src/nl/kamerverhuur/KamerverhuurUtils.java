@@ -47,13 +47,22 @@ public class KamerverhuurUtils {
         return null;
     }
 
+    /**
+     * Get the username out of the session
+     * @param request the request so we can get the session
+     * @return the username of the logged in user
+     */
     public static String getUserNameFromSession(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         return (String) session.getAttribute("loggedInUser");
     }
 
+    /**
+     * Remove the username from the session, so we are logged out
+     * @param request the request so we can get the session
+     */
     public static void clearCurrentSession(HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         session.removeAttribute("loggedInUser");
     }
 

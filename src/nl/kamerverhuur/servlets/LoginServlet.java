@@ -154,6 +154,11 @@ public class LoginServlet extends HttpServlet {
         response.addCookie(loggedInUserCookie);
     }
 
+    /**
+     * Start a new session for the logged in user
+     * @param request the request so we can get the session
+     * @param userName the username of the logged in user
+     */
     private void startSession(HttpServletRequest request, String userName){
         HttpSession session = request.getSession();
         session.setAttribute("loggedInUser", userName);
